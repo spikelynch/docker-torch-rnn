@@ -1,5 +1,4 @@
 FROM ubuntu:14.04
-MAINTAINER Cristian Baldi "bld.cris.96@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
@@ -28,16 +27,24 @@ ENV DYLD_LIBRARY_PATH=/root/torch/install/lib:$DYLD_LIBRARY_PATH
 ENV LUA_CPATH='/root/torch/install/lib/?.so;'$LUA_CPATH
 
 #torch-rnn and python requirements
+RUN apt-get install -y python3-pip
 WORKDIR /root
-RUN git clone https://github.com/jcjohnson/torch-rnn && \
-    pip install -r torch-rnn/requirements.txt
+RUN git clone https://github.com/spikelynch/torch-rnn.git
+RUN pip3 install Cython==0.23.4
+RUN pip3 install numpy==1.10.4
+#RUN pip3 install argparse=1.2.1
+#RUN pip3 install six=1.10.0 
 
+# Required because luarocks uses old git:// URLs!
+RUN git config --global url.https://github.com/.insteadOf git://github.com/
 #Lua requirements
 WORKDIR /root
 RUN luarocks install torch
 RUN luarocks install nn
 RUN luarocks install optim
 RUN luarocks install lua-cjson
+RUN luarocks install lua-resty-prettycjson
+RUN luarocks install luautf8
 
 RUN git clone https://github.com/deepmind/torch-hdf5 /root/torch-hdf5
 WORKDIR /root/torch-hdf5
