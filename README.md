@@ -1,5 +1,12 @@
 # docker-torch-rnn
 
+This is a fork of the original docker-torch-rnn which I'm using to keep a
+bunch of ActivityPub bots alive: I haven't done anything to get it to run
+on GPU or do training, just sampling. -ML 2025
+
+
+
+
 Docker images for using torch-rnn (https://github.com/jcjohnson/torch-rnn)
 
 ## Available tags
