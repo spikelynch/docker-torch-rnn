@@ -43,6 +43,8 @@ RUN luarocks install torch
 RUN luarocks install nn
 RUN luarocks install optim
 RUN luarocks install lua-cjson
+RUN luarocks install lua-resty-prettycjson
+RUN luarocks install luautf8
 
 RUN git clone https://github.com/deepmind/torch-hdf5 /root/torch-hdf5
 WORKDIR /root/torch-hdf5
